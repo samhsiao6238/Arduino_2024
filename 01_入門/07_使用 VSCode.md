@@ -24,7 +24,7 @@
 
 <br>
 
-2. 選擇 `Create New Project` 創建一個新的 PlatformIO 項目；輸入項目名稱 `_ex0730_`，選擇開發板 `ESP32 Dev Module`，選擇框架 `Arduino`），然後使用預設的 `location`；完成後點擊右下角的 `Finish`。
+2. 選擇 `Create New Project` 建立一個新的 PlatformIO 項目；輸入項目名稱 `_ex0730_`，選擇開發板 `ESP32 Dev Module`，選擇框架 `Arduino`），然後使用預設的 `location`；完成後點擊右下角的 `Finish`。
 
     ![](images/img_34.png)
 

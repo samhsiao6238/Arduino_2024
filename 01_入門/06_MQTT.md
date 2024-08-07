@@ -140,7 +140,7 @@ _以上測試已經可以正常使用，如果需要更高級的配置，如啟�
 
 <br>
 
-3. 創建密碼文件並添加用戶。
+3. 建立密碼文件並添加用戶。
 
     ```bash
     sudo mosquitto_passwd -c /etc/mosquitto/passwd YOUR_USERNAME
