@@ -162,69 +162,70 @@ _使用 ESP32_
     String lastData = "";
 
     void setup() {
-    Serial.begin(115200);
+        Serial.begin(115200);
 
-    WiFi.mode(WIFI_STA); 
-    WiFi.disconnect();
-    delay(1000);
+        WiFi.mode(WIFI_STA); 
+        WiFi.disconnect();
+        delay(1000);
 
-    // 連接到 WiFi
-    Serial.println();
-    Serial.println();
-    Serial.print("Connecting to: ");
-    Serial.println(_SSID);
-    WiFi.begin(_SSID, _PASSWORD);
+        // 連接到 WiFi
+        Serial.println();
+        Serial.println();
+        Serial.print("Connecting to: ");
+        Serial.println(_SSID);
+        WiFi.begin(_SSID, _PASSWORD);
 
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print("-");
-    }
+        while (WiFi.status() != WL_CONNECTED) {
+            delay(500);
+            Serial.print("-");
+        }
 
-    Serial.println("");
-    Serial.println("WiFi Connected");
+        Serial.println("");
+        Serial.println("WiFi Connected");
 
-    // 打印 IP 地址
-    Serial.print("IP Address: ");
-    Serial.print("http://");
-    Serial.print(WiFi.localIP());
-    Serial.println("/");
+        // 打印 IP 地址
+        Serial.print("IP Address: ");
+        Serial.print("http://");
+        Serial.print(WiFi.localIP());
+        Serial.println("/");
 
-    // 設置數據到 Firebase Realtime Database
-    firebase.setString("Example/setString", "It's Working");
-    firebase.setInt("Example/setInt", 123);
-    firebase.setFloat("Example/setFloat", 45.32);
+        // 設置數據到 Firebase Realtime Database
+        firebase.setString("Example/setString", "It's Working");
+        firebase.setInt("Example/setInt", 123);
+        firebase.setFloat("Example/setFloat", 45.32);
 
-    // 推送數據到 Firebase Realtime Database
-    firebase.pushString("push", "Hello");
-    firebase.pushInt("push", 789);
-    firebase.pushFloat("push", 89.54);
+        // 推送數據到 Firebase Realtime Database
+        firebase.pushString("push", "Hello");
+        firebase.pushInt("push", 789);
+        firebase.pushFloat("push", 89.54);
 
-    // 獲取數據
-    String data1 = firebase.getString("Example/setString");
-    Serial.print("Received String:\t");
-    Serial.println(data1);
+        // 獲取數據
+        String data1 = firebase.getString("Example/setString");
+        Serial.print("Received String:\t");
+        Serial.println(data1);
 
-    int data2 = firebase.getInt("Example/setInt");
-    Serial.print("Received Int:\t\t");
-    Serial.println(data2);
+        int data2 = firebase.getInt("Example/setInt");
+        Serial.print("Received Int:\t\t");
+        Serial.println(data2);
 
-    float data3 = firebase.getFloat("Example/setFloat");
-    Serial.print("Received Float:\t\t");
-    Serial.println(data3);
+        float data3 = firebase.getFloat("Example/setFloat");
+        Serial.print("Received Float:\t\t");
+        Serial.println(data3);
 
-    // 刪除數據
-    firebase.deleteData("Example");
+        // 刪除數據
+        firebase.deleteData("Example");
     }
 
     void loop() {
-    // 定期檢查數據變化
-    String newData = firebase.getString("Example/setString");
-    if (newData != lastData) {
-        Serial.print("Data changed: ");
-        Serial.println(newData);
-        lastData = newData;
-    }
-    delay(1000); // 每 1 秒檢查一次
+        // 定期檢查數據變化
+        String newData = firebase.getString("Example/setString");
+        if (newData != lastData) {
+            Serial.print("Data changed: ");
+            Serial.println(newData);
+            lastData = newData;
+        }
+        // 每 1 秒檢查一次
+        delay(1000);
     }
     ```
 
