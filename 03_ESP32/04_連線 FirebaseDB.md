@@ -60,24 +60,26 @@ _使用 ESP32_
 
 4. 建立資料庫；操作暫時略過。
 
+<br>
+
 ## 編輯腳本
 
 1. 以下是一段將數據寫入 Firebase Realtime Database 的簡單範例，過程包含連線 WiFi、連線資料庫，然後寫入、讀取、刪除資料。
 
     ```cpp
-        #include <WiFi.h>
-        #include <ESP32Firebase.h>
+    #include <WiFi.h>
+    #include <ESP32Firebase.h>
 
-        // 替換自己的 Wi-Fi SSID 和密碼
-        #define _SSID "SamHome2.4g"
-        #define _PASSWORD "sam112233"
+    // 替換自己的 Wi-Fi SSID 和密碼
+    #define _SSID "SamHome2.4g"
+    #define _PASSWORD "sam112233"
 
-        // 替換自己的 Firebase 資料庫 URL
-        #define REFERENCE_URL "https://myarduino-2024-default-rtdb.firebaseio.com/"
+    // 替換自己的 Firebase 資料庫 URL
+    #define REFERENCE_URL "https://myarduino-2024-default-rtdb.firebaseio.com/"
 
-        Firebase firebase(REFERENCE_URL);
+    Firebase firebase(REFERENCE_URL);
 
-        void setup() {
+    void setup() {
         Serial.begin(115200);
 
         WiFi.mode(WIFI_STA);
@@ -131,11 +133,11 @@ _使用 ESP32_
 
         // 刪除數據
         firebase.deleteData("Example");
-        }
+    }
 
-        void loop() {
+    void loop() {
         // 此範例中，loop() 不執行任何操作
-        }
+    }
     ```
 
 <br>
