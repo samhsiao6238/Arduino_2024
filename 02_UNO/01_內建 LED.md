@@ -2,7 +2,7 @@
 
 ## 說明
 
-1. Uno 開發板上內建的 LED 引腳在 `D13`，可使用 `LED_BUILTIN` 常量來控制這個 LED。
+1. Uno 開發板上內建的 LED 引腳在 `D13`，可使用 `LED_BUILTIN` 常數來控制這個 LED。
 
     ```cpp
     void setup() {
