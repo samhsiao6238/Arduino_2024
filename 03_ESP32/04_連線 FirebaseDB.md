@@ -144,6 +144,10 @@ _使用 ESP32_
 
 ## 加入監聽
 
+_修改以上基本範例，加入對節點的監聽_
+
+<br>
+
 1. 程式碼，要手動先建立監聽節點。
 
     ```cpp
@@ -213,7 +217,8 @@ _使用 ESP32_
         Serial.println(data3);
 
         // 刪除數據
-        firebase.deleteData("Example");
+        // 因為要監聽 Example 節點，所以不要刪除
+        // firebase.deleteData("Example");
     }
 
     void loop() {
@@ -305,7 +310,7 @@ _使用 ESP32_
         Serial.println(lastFloatData);
         }
 
-        void loop() {
+    void loop() {
         // 檢查字串數據
         String newStringData = firebase.getString("Example/setString");
         if (newStringData != lastStringData) {
