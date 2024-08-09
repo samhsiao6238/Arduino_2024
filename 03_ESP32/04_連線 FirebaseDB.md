@@ -150,11 +150,11 @@ _使用 ESP32_
     #include <WiFi.h>
     #include <ESP32Firebase.h>
 
-    // 替換為你的 Wi-Fi SSID 和密碼
+    // 替換為自己的 Wi-Fi SSID 和密碼
     #define _SSID "SamHome2.4g"
     #define _PASSWORD "sam112233"
 
-    // 替換為你的 Firebase 資料庫 URL
+    // 替換為自己的 Firebase 資料庫 URL
     #define REFERENCE_URL "https://myarduino-2024-default-rtdb.firebaseio.com/"
 
     Firebase firebase(REFERENCE_URL);
