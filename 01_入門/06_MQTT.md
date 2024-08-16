@@ -176,47 +176,47 @@ _以上測試已經可以正常使用，如果需要更高級的配置，如啟�
     PubSubClient client(espClient);
 
     void setup() {
-    Serial.begin(115200);
-    setup_wifi();
-    client.setServer(mqtt_server, mqtt_port);
+        Serial.begin(115200);
+        setup_wifi();
+        client.setServer(mqtt_server, mqtt_port);
     }
 
     void setup_wifi() {
-    delay(10);
-    Serial.println();
-    Serial.print("Connecting to ");
-    Serial.println(ssid);
+        delay(10);
+        Serial.println();
+        Serial.print("Connecting to ");
+        Serial.println(ssid);
 
-    WiFi.begin(ssid, password);
+        WiFi.begin(ssid, password);
 
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
+        while (WiFi.status() != WL_CONNECTED) {
+            delay(500);
+            Serial.print(".");
+        }
 
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
+        Serial.println("");
+        Serial.println("WiFi connected");
+        Serial.println("IP address: ");
+        Serial.println(WiFi.localIP());
     }
 
     void reconnect() {
-    while (!client.connected()) {
-        Serial.print("Attempting MQTT connection...");
-        if (client.connect("ESP32Publisher")) {
-        Serial.println("connected");
-        } else {
-        Serial.print("failed, rc=");
-        Serial.print(client.state());
-        Serial.println(" try again in 5 seconds");
-        delay(5000);
+        while (!client.connected()) {
+            Serial.print("Attempting MQTT connection...");
+            if (client.connect("ESP32Publisher")) {
+            Serial.println("connected");
+            } else {
+            Serial.print("failed, rc=");
+            Serial.print(client.state());
+            Serial.println(" try again in 5 seconds");
+            delay(5000);
+            }
         }
-    }
     }
 
     void loop() {
-    if (!client.connected()) {
-        reconnect();
+        if (!client.connected()) {
+            reconnect();
     }
     client.loop();
 
@@ -231,7 +231,28 @@ _以上測試已經可以正常使用，如果需要更高級的配置，如啟�
 
 <br>
 
-2. 訂閱消息。
+2. 發布並加上計次。
+
+    ```cpp
+    // 其餘不變 ...
+    // 宣告一個計次變數，實務上可使用 long
+    int message_count = 0
+
+
+    // 在 client loop() 之後進行累加
+    message_count++;
+
+    // 接著透過累加的數值建立組合訊息：將數值轉換為字串
+    String message = "Hello & Count：" + String(message);
+
+    // 將新的訊息進行發布
+    client.publish("test/topic", messag.c_str());
+    // 其餘不變 ...
+    ```
+
+<br>
+
+3. 訂閱消息。
 
     ```cpp
     #include <WiFi.h>
@@ -249,63 +270,63 @@ _以上測試已經可以正常使用，如果需要更高級的配置，如啟�
     PubSubClient client(espClient);
 
     void callback(char* topic, byte* payload, unsigned int length) {
-    Serial.print("Message arrived [");
-    Serial.print(topic);
-    Serial.print("] ");
-    for (unsigned int i = 0; i < length; i++) {
-        Serial.print((char)payload[i]);
-    }
-    Serial.println();
+        Serial.print("Message arrived [");
+        Serial.print(topic);
+        Serial.print("] ");
+        for (unsigned int i = 0; i < length; i++) {
+            Serial.print((char)payload[i]);
+        }
+        Serial.println();
     }
 
     void setup() {
-    Serial.begin(115200);
-    setup_wifi();
-    client.setServer(mqtt_server, mqtt_port);
-    client.setCallback(callback);
+        Serial.begin(115200);
+        setup_wifi();
+        client.setServer(mqtt_server, mqtt_port);
+        client.setCallback(callback);
     }
 
     void setup_wifi() {
-    delay(10);
-    Serial.println();
-    Serial.print("Connecting to ");
-    Serial.println(ssid);
+        delay(10);
+        Serial.println();
+        Serial.print("Connecting to ");
+        Serial.println(ssid);
 
-    WiFi.begin(ssid, password);
+        WiFi.begin(ssid, password);
 
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
+        while (WiFi.status() != WL_CONNECTED) {
+            delay(500);
+            Serial.print(".");
+        }
 
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
+        Serial.println("");
+        Serial.println("WiFi connected");
+        Serial.println("IP address: ");
+        Serial.println(WiFi.localIP());
     }
 
     void reconnect() {
-    while (!client.connected()) {
-        Serial.print("Attempting MQTT connection...");
-        if (client.connect("ESP32Subscriber")) {
-        Serial.println("connected");
-        // 訂閱主題 "test/topic"
-        client.subscribe("test/topic");
-        } else {
-        Serial.print("failed, rc=");
-        Serial.print(client.state());
-        Serial.println(" try again in 5 seconds");
-        delay(5000);
+        while (!client.connected()) {
+            Serial.print("Attempting MQTT connection...");
+            if (client.connect("ESP32Subscriber")) {
+            Serial.println("connected");
+            // 訂閱主題 "test/topic"
+            client.subscribe("test/topic");
+            } else {
+            Serial.print("failed, rc=");
+            Serial.print(client.state());
+            Serial.println(" try again in 5 seconds");
+            delay(5000);
+            }
         }
-    }
     }
 
     void loop() {
-    if (!client.connected()) {
-        reconnect();ㄉ
-    }
-    client.loop();
-    }
+        if (!client.connected()) {
+            reconnect();ㄉ
+        }
+        client.loop();
+        }
     ```
 
     ![](images/img_30.png)
