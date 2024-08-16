@@ -323,7 +323,7 @@ _以上測試已經可以正常使用，如果需要更高級的配置，如啟�
 
     void loop() {
         if (!client.connected()) {
-            reconnect();ㄉ
+            reconnect();
         }
         client.loop();
         }
